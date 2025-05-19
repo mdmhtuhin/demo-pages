@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .leaderboard-container {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 0;
+            box-shadow: none;
+            padding: 15px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 24px;
+        }
+        
+        h2 {
+            text-align: center;
+            color: #666;
+            font-size: 16px;
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-weight: normal;
+        }
+        
+        .leaderboard-entry {
+            display: flex;
+            align-items: center;
+            padding: 8px 5px;
+            margin: 8px 0;
+            background-color: transparent;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .leaderboard-rank {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            font-weight: bold;
+            color: white;
+            font-size: 12px;
+            margin-right: 10px;
+        }
+        
+        /* Rank-specific colors */
+        .leaderboard-rank-1 {
+            background-color: #FFD700; /* Gold */
+        }
+        
+        .leaderboard-rank-2 {
+            background-color: #C0C0C0; /* Silver */
+        }
+        
+        .leaderboard-rank-3 {
+            background-color: #CD7F32; /* Bronze */
+        }
+        
+        .leaderboard-rank-4, .leaderboard-rank-5, .leaderboard-rank-6, 
+        .leaderboard-rank-7, .leaderboard-rank-8, .leaderboard-rank-9 {
+            background-color: #6c757d; /* Gray for other ranks */
+        }
+        
+        .leaderboard-username {
+            flex-grow: 1;
+            text-align: left;
+            color: #444;
+            font-family: monospace;
+        }
+        
+        .leaderboard-score {
+            font-weight: bold;
+            color: #2c3e50;
+            width: 30px;
+            text-align: right;
+        }
+        
+        /* Background colors for top 3 */
+        .leaderboard-first-place {
+            background-color: #fff9e6;
+        }
+        
+        .leaderboard-second-place {
+            background-color: #f8f8f8;
+        }
+        
+        .leaderboard-third-place {
+            background-color: #fff5ee;
+        }
+    </style>
+</head>
+<body>
+    <div class="leaderboard-container">
+        <h1>Leader Board</h1>
+        <h2>Today's leaderboard</h2>
+        
+        <!-- 1st Place (Gold) -->
+        <div class="leaderboard-entry leaderboard-first-place">
+            <div class="leaderboard-rank leaderboard-rank-1">1</div>
+            <div class="leaderboard-username">bishad</div>
+            <div class="leaderboard-score">60</div>
+        </div>
+        
+        <!-- 2nd Place (Silver) -->
+        <div class="leaderboard-entry leaderboard-second-place">
+            <div class="leaderboard-rank leaderboard-rank-2">2</div>
+            <div class="leaderboard-username">shorter</div>
+            <div class="leaderboard-score">60</div>
+        </div>
+        
+        <!-- 3rd Place (Bronze) -->
+        <div class="leaderboard-entry leaderboard-third-place">
+            <div class="leaderboard-rank leaderboard-rank-3">3</div>
+            <div class="leaderboard-username">god_of_forbidden_light</div>
+            <div class="leaderboard-score">44</div>
+        </div>
+        
+        <!-- Other positions -->
+        <div class="leaderboard-entry">
+            <div class="leaderboard-rank leaderboard-rank-4">4</div>
+            <div class="leaderboard-username">devils.breath</div>
+            <div class="leaderboard-score">42</div>
+        </div>
+        
+        <div class="leaderboard-entry">
+            <div class="leaderboard-rank leaderboard-rank-5">5</div>
+            <div class="leaderboard-username">kala</div>
+            <div class="leaderboard-score">37</div>
+        </div>
+        
+        <div class="leaderboard-entry">
+            <div class="leaderboard-rank leaderboard-rank-6">6</div>
+            <div class="leaderboard-username">bashiwala</div>
+            <div class="leaderboard-score">35</div>
+        </div>
+        
+        <div class="leaderboard-entry">
+            <div class="leaderboard-rank leaderboard-rank-7">7</div>
+            <div class="leaderboard-username">fullmoon</div>
+            <div class="leaderboard-score">17</div>
+        </div>
+        
+        <div class="leaderboard-entry">
+            <div class="leaderboard-rank leaderboard-rank-8">8</div>
+            <div class="leaderboard-username">ca-topper</div>
+            <div class="leaderboard-score">8</div>
+        </div>
+        
+        <div class="leaderboard-entry">
+            <div class="leaderboard-rank leaderboard-rank-9">9</div>
+            <div class="leaderboard-username">blackgod</div>
+            <div class="leaderboard-score">7</div>
+        </div>
+    </div>
+</body>
+</html>

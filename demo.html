@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>List View with Images</title>
+  <style>
+    /* Reset some default styles */
+    body, h3, p {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Container for the list */
+    .list-container {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 0 16px;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Individual list item */
+    .list-item {
+      display: flex;
+      align-items: center;
+      padding: 16px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 12px;
+      transition: background-color 0.2s ease;
+    }
+
+    /* Hover effect for list items */
+    .list-item:hover {
+      background-color: #f9f9f9;
+    }
+
+    /* Image styling */
+    .item-image {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      object-fit: cover;
+      margin-right: 16px;
+    }
+
+    /* Text content container */
+    .item-content {
+      flex: 1;
+    }
+
+    /* Title styling */
+    .item-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 4px;
+    }
+
+    /* Subtitle styling */
+    .item-subtitle {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 4px;
+    }
+
+    /* Metadata styling */
+    .item-metadata {
+      font-size: 12px;
+      color: #999;
+    }
+
+    /* Responsive design for smaller screens */
+    @media (max-width: 480px) {
+      .list-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .item-image {
+        margin-right: 0;
+        margin-bottom: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="list-container">
+    <!-- List Item 1 -->
+    <div class="list-item">
+      <img src="https://via.placeholder.com/60" alt="Item Image" class="item-image">
+      <div class="item-content">
+        <h3 class="item-title">List Item Title 1</h3>
+        <p class="item-subtitle">This is a subtitle for the first item.</p>
+        <p class="item-metadata">2 hours ago</p>
+      </div>
+    </div>
+
+    <!-- List Item 2 -->
+    <div class="list-item">
+      <img src="https://via.placeholder.com/60" alt="Item Image" class="item-image">
+      <div class="item-content">
+        <h3 class="item-title">List Item Title 2</h3>
+        <p class="item-subtitle">This is a subtitle for the second item.</p>
+        <p class="item-metadata">5 hours ago</p>
+      </div>
+    </div>
+
+    <!-- List Item 3 -->
+    <div class="list-item">
+      <img src="https://via.placeholder.com/60" alt="Item Image" class="item-image">
+      <div class="item-content">
+        <h3 class="item-title">List Item Title 3</h3>
+        <p class="item-subtitle">This is a subtitle for the third item.</p>
+        <p class="item-metadata">1 day ago</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

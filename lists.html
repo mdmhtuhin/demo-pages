@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bangladesh Location Selector</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .location-selector {
+            width: 100%;
+            max-width: 320px;
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .location-selector h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0 0 1.25rem 0;
+            color: #202124;
+        }
+        
+        .option-section {
+            margin: 1.75rem 0;
+        }
+        
+        .option-section:first-of-type {
+            margin-top: 0;
+        }
+        
+        .option-section h3 {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #5f6368;
+            margin: 0 0 0.75rem 0;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .option-list {
+            list-style: none;
+        }
+        
+        .option-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.875rem 0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9375rem;
+            color: #3c4043;
+            position: relative;
+        }
+        
+        .option-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background-color: #e0e0e0;
+        }
+        
+        .option-item:hover {
+            background-color: #f1f3f4;
+        }
+        
+        .all-option {
+            font-weight: 500;
+            color: #1a73e8;
+            background-color: #e8f0fe;
+            padding: 0.875rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        
+        .all-option:hover {
+            background-color: #d2e3fc;
+        }
+        
+        .all-option::after {
+            display: none;
+        }
+        
+        .arrow {
+            color: #9aa0a6;
+            font-size: 0.9rem;
+        }
+        
+        .option-item.active {
+            color: #1a73e8;
+            font-weight: 500;
+        }
+        
+        @media (max-width: 400px) {
+            .location-selector {
+                padding: 20px;
+                max-width: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="location-selector">
+        <h2>Select City or Division</h2>
+        
+        <div class="option-section">
+            <div class="option-item all-option active">All of Bangladesh <span class="arrow">></span></div>
+        </div>
+        
+        <div class="option-section">
+            <h3>Cities</h3>
+            <ul class="option-list">
+                <li class="option-item">Dhaka <span class="arrow">></span></li>
+                <li class="option-item">Chattogram <span class="arrow">></span></li>
+                <li class="option-item">Sylhet <span class="arrow">></span></li>
+                <li class="option-item">Khulna <span class="arrow">></span></li>
+                <li class="option-item">Barishal <span class="arrow">></span></li>
+                <li class="option-item">Rajshahi <span class="arrow">></span></li>
+                <li class="option-item">Rangpur <span class="arrow">></span></li>
+                <li class="option-item">Mymensingh <span class="arrow">></span></li>
+            </ul>
+        </div>
+        
+        <div class="option-section">
+            <h3>Divisions</h3>
+            <ul class="option-list">
+                <li class="option-item">Dhaka Division <span class="arrow">></span></li>
+                <li class="option-item">Chattogram Division <span class="arrow">></span></li>
+                <li class="option-item">Sylhet Division <span class="arrow">></span></li>
+                <li class="option-item">Khulna Division <span class="arrow">></span></li>
+                <li class="option-item">Rajshahi Division <span class="arrow">></span></li>
+                <li class="option-item">Rangpur Division <span class="arrow">></span></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const optionItems = document.querySelectorAll('.option-item');
+            
+            optionItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // Remove active class from all items
+                    optionItems.forEach(i => {
+                        i.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked item
+                    this.classList.add('active');
+                    
+                    // Get the selected value
+                    const selectedValue = this.textContent.trim().replace(' >', '');
+                    console.log('Selected location:', selectedValue);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Security Question</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        .security-container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .notice-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #6c757d;
+            padding: 15px;
+            margin-bottom: 30px;
+            font-size: 14px;
+            color: #495057;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .question-group {
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-size: 14px;
+            color: #495057;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: border-color 0.15s ease-in-out;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: #80bdff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        .submit-btn {
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .submit-btn:hover {
+            background-color: #3367d6;
+        }
+
+        @media (max-width: 640px) {
+            .security-container {
+                padding: 20px;
+                margin: 20px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="security-container">
+        <h1>Change security question</h1>
+        
+        <div class="notice-box">
+            <p>If you are setting your security question/answer for the first time, then use your iNve username as old security question answer</p>
+        </div>
+        
+        <div class="form-section">
+            <h2>Your Old Answer</h2>
+            
+            <div class="question-group">
+                <h3>Select security question</h3>
+                <select class="security-question-dropdown">
+                    <option>What was your first pet's name?</option>
+                    <option>What elementary school did you attend?</option>
+                    <option>What was your mother's maiden name?</option>
+                    <option>What city were you born in?</option>
+                    <option>What was the make of your first car?</option>
+                </select>
+            </div>
+            
+            <div class="question-group">
+                <h3>Your answer</h3>
+                <input type="text" placeholder="Enter your old answer">
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <h2>Your New Answer</h2>
+            
+            <div class="question-group">
+                <h3>Select security question</h3>
+                <select class="security-question-dropdown">
+                    <option>What was your first pet's name?</option>
+                    <option>What elementary school did you attend?</option>
+                    <option>What was your mother's maiden name?</option>
+                    <option>What city were you born in?</option>
+                    <option>What was the make of your first car?</option>
+                </select>
+            </div>
+            
+            <div class="question-group">
+                <h3>Your new answer</h3>
+                <input type="text" placeholder="Enter your new answer">
+            </div>
+        </div>
+        
+        <button class="submit-btn">Change Security Question</button>
+    </div>
+</body>
+</html>

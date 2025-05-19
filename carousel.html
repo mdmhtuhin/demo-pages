@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive User Carousel</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Carousel Container */
+        .search-carousel-container {
+            max-width: 1000px;
+            width: 90%;
+            margin: 2rem auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Carousel Track */
+        .search-carousel-track {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* User Card */
+        .search-user-card {
+            min-width: 100%;
+            padding: 2rem;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .search-user-card:hover {
+            transform: translateY(-5px);
+            background: #f8f9fa;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        /* User Details */
+        .search-user-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+            object-fit: cover;
+            border: 3px solid #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .search-user-name {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .search-user-detail {
+            color: #7f8c8d;
+            margin: 0.3rem 0;
+            font-size: 0.95rem;
+        }
+
+        /* Navigation Buttons */
+        .search-carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.9);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #2c3e50;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .search-carousel-btn:hover {
+            background: #ffffff;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .search-prev-btn {
+            left: 15px;
+        }
+
+        .search-next-btn {
+            right: 15px;
+        }
+
+        /* Pagination Dots */
+        .search-pagination-dots {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+
+        .search-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-dot.active {
+            background: #2196F3;
+            transform: scale(1.2);
+        }
+
+        /* Modal Styles */
+        .search-user-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .search-modal-content {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            position: relative;
+        }
+
+        .search-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .search-modal-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="search-carousel-container">
+        <div class="search-carousel-track">
+            <!-- User cards will be populated by JavaScript -->
+        </div>
+        
+        <button class="search-carousel-btn search-prev-btn">&lt;</button>
+        <button class="search-carousel-btn search-next-btn">&gt;</button>
+        
+        <div class="search-pagination-dots"></div>
+    </div>
+
+    <script>
+        // User Data (Modify this array to add/remove users)
+        const users = [
+            {
+                id: 1,
+                name: "John Doe",
+                email: "john@example.com",
+                role: "Software Developer",
+                location: "New York",
+                avatar: "https://randomuser.me/api/portraits/men/1.jpg"
+            },
+            {
+                id: 2,
+                name: "Jane Smith",
+                email: "jane@example.com",
+                role: "UX Designer",
+                location: "London",
+                avatar: "https://randomuser.me/api/portraits/women/1.jpg"
+            },
+            {
+                id: 3,
+                name: "Mike Johnson",
+                email: "mike@example.com",
+                role: "Project Manager",
+                location: "San Francisco",
+                avatar: "https://randomuser.me/api/portraits/men/2.jpg"
+            }
+        ];
+
+        // Fetch user data dynamically
+        async function fetchUsers() {
+            try {
+                const response = await fetch('https://randomuser.me/api/?results=5'); // Example API
+                const data = await response.json();
+                return data.results.map((user, index) => ({
+                    id: index + 1,
+                    name: `${user.name.first} ${user.name.last}`,
+                    email: user.email,
+                    role: "User", // Placeholder role
+                    location: `${user.location.city}, ${user.location.country}`,
+                    avatar: user.picture.large
+                }));
+            } catch (error) {
+                console.error('Error fetching users:', error);
+                return [];
+            }
+        }
+
+        // Initialize Carousel with fetched data
+        async function initCarousel() {
+            const fetchedUsers = await fetchUsers();
+            if (fetchedUsers.length > 0) {
+                users.push(...fetchedUsers);
+            }
+
+            // Create user cards
+            users.forEach((user, index) => {
+                const card = document.createElement('div');
+                card.className = 'search-user-card';
+                card.innerHTML = `
+                    <img src="${user.avatar}" alt="${user.name}" class="search-user-avatar">
+                    <h2 class="search-user-name">${user.name}</h2>
+                    <p class="search-user-detail">${user.email}</p>
+                    <p class="search-user-detail">${user.role}</p>
+                    <p class="search-user-detail">${user.location}</p>
+                `;
+
+                card.addEventListener('click', () => handleCardClick(user));
+                searchCarouselTrack.appendChild(card);
+
+                const dot = document.createElement('div');
+                dot.className = 'search-dot' + (index === 0 ? ' active' : '');
+                dot.addEventListener('click', () => goToSlide(index));
+                searchPaginationDots.appendChild(dot);
+            });
+
+            updateButtons();
+        }
+
+        // Add modal for user details
+        function handleCardClick(user) {
+            const modal = document.createElement('div');
+            modal.className = 'search-user-modal';
+            modal.innerHTML = `
+                <div class="search-modal-content">
+                    <span class="search-close-btn">&times;</span>
+                    <img src="${user.avatar}" alt="${user.name}" class="search-modal-avatar">
+                    <h2>${user.name}</h2>
+                    <p>Email: ${user.email}</p>
+                    <p>Role: ${user.role}</p>
+                    <p>Location: ${user.location}</p>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+
+            modal.querySelector('.search-close-btn').addEventListener('click', () => {
+                document.body.removeChild(modal);
+            });
+        }
+
+        // Carousel Elements
+        const searchCarouselTrack = document.querySelector('.search-carousel-track');
+        const searchPaginationDots = document.querySelector('.search-pagination-dots');
+        const searchPrevBtn = document.querySelector('.search-prev-btn');
+        const searchNextBtn = document.querySelector('.search-next-btn');
+        let currentIndex = 0;
+
+        // Update carousel position and controls
+        function updateCarousel() {
+            searchCarouselTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+            document.querySelectorAll('.search-dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
+            });
+            updateButtons();
+        }
+
+        // Update button states
+        function updateButtons() {
+            searchPrevBtn.disabled = currentIndex === 0;
+            searchNextBtn.disabled = currentIndex === users.length - 1;
+        }
+
+        // Navigation functions
+        function goToSlide(index) {
+            currentIndex = index;
+            updateCarousel();
+        }
+
+        // Event Listeners
+        searchPrevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCarousel();
+            }
+        });
+
+        searchNextBtn.addEventListener('click', () => {
+            if (currentIndex < users.length - 1) {
+                currentIndex++;
+                updateCarousel();
+            }
+        });
+
+        // Initialize carousel on page load
+        initCarousel();
+
+        // Optional: Add keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') searchPrevBtn.click();
+            if (e.key === 'ArrowRight') searchNextBtn.click();
+        });
+
+        // Automatic Slideshow
+        let autoSlideInterval = setInterval(() => {
+            if (currentIndex < users.length - 1) {
+                currentIndex++;
+            } else {
+                currentIndex = 0;
+            }
+            updateCarousel();
+        }, 3000); // Change slide every 3 seconds
+
+        // Reset interval on user interaction
+        function resetAutoSlide() {
+            clearInterval(autoSlideInterval);
+            autoSlideInterval = setInterval(() => {
+                if (currentIndex < users.length - 1) {
+                    currentIndex++;
+                } else {
+                    currentIndex = 0;
+                }
+                updateCarousel();
+            }, 3000);
+        }
+
+        searchPrevBtn.addEventListener('click', resetAutoSlide);
+        searchNextBtn.addEventListener('click', resetAutoSlide);
+        document.querySelectorAll('.search-dot').forEach(dot => {
+            dot.addEventListener('click', resetAutoSlide);
+        });
+    </script>
+</body>
+</html>

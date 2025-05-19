@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat Rooms</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="style.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+  <!-- Navbar -->
+  <nav id="navbar">
+    <div class="navbar-content">
+      <span>My App</span>
+      <div class="navbar-links">
+        <a href="#">Home</a>
+        <a href="#">Profile</a>
+        <a href="#">Settings</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Chat Room List -->
+  <div class="card">
+    <!-- Create Chat Room Button -->
+    <a href="#" class="header chat-room-create-button" onclick="openCreateChatRoomModal(event)">
+      <span>Create Chat Room</span>
+      <i class="fa-solid fa-plus"></i>
+    </a>
+
+    <!-- Search Chat Room Button -->
+    <a href="#" class="header chat-room-search-button">
+      <span>Search Chat Room</span>
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </a>
+
+    <!-- List 1: Favorite Rooms -->
+    <div class="header">
+      <span>Favorite rooms</span>
+      <div class="action-buttons">
+        <a class="vl refresh-button" onclick="refreshList('favorite', 'list1')">
+          <i class="fa-solid fa-refresh"></i>
+        </a>
+        <span class="arrow" id="arrow1" onclick="toggleList('list1')"><i class="fa-solid fa-chevron-up"></i></span>
+      </div>
+    </div>
+    <ul class="list" id="list1">
+      <li>
+        <a href="#" data-room-name="Room 1">
+          <span>Room 1</span>
+          <span>5/10</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" data-room-name="Room 2">
+          <span>Room 2</span>
+          <span>3/8</span>
+        </a>
+      </li>
+    </ul>
+
+    <!-- Add more room lists as needed -->
+  </div>
+
+  <!-- Chat Windows Container -->
+  <div id="chat-windows-container">
+    <!-- Chat windows will be dynamically added here -->
+  </div>
+
+  <!-- Loader -->
+  <div id="loader" style="display: none;">Loading...</div>
+
+  <script src="script.js"></script> <!-- Link to your JavaScript file -->
+</body>
+</html>

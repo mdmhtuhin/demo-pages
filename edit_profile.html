@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Page</title>
+  <link rel="stylesheet" href="edit_profile.css">
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+          <h1>User Profile</h1>
+          <button id="editProfileBtn" class="profile-edit-button">
+            <i class="fas fa-edit"></i> Edit Profile
+          </button>
+        </div>
+        
+        <div class="profile-info">
+          <div class="profile-avatar-container">
+            <img src="https://via.placeholder.com/150" alt="Profile Picture" id="profileAvatar" class="profile-avatar">
+          </div>
+          <div class="profile-details">
+            <h2 id="displayName" class="profile-name"><i class="fas fa-user"></i> Full Name</h2>
+            <p id="displayEmail" class="profile-email"><i class="fas fa-envelope"></i> mehedihasan14Q43@gmail.com</p>
+            <p id="displayBio" class="profile-bio"><i class="fas fa-info-circle"></i> Short Bio</p>
+            <p id="displayDob" class="profile-dob"><i class="fas fa-birthday-cake"></i> 11, Dec 1993</p>
+            <p id="displayStatus" class="profile-status"><i class="fas fa-heart"></i> Married</p>
+            <p id="displayGender" class="profile-gender"><i class="fas fa-venus-mars"></i> Male</p>
+            <p id="displayPhone" class="profile-phone"><i class="fas fa-phone"></i> 01753583954</p>
+          </div>
+        </div>
+      </div>
+    
+      <!-- The Modal -->
+      <div id="profileModal" class="profile-modal">
+        <div class="profile-modal-content">
+          <span class="profile-close">&times;</span>
+          <h2><i class="fas fa-user-edit"></i> Edit Profile Information</h2>
+          
+          <form id="profileForm" class="profile-form">
+            <div class="profile-form-row">
+              <div class="profile-form-group profile-form-group-half">
+                <label for="name" class="profile-label"><i class="fas fa-user"></i> Full Name</label>
+                <div class="profile-input-container">
+                  <i class="fas fa-user input-icon"></i>
+                  <input type="text" id="name" name="name" class="profile-input" required>
+                </div>
+              </div>
+              
+              <div class="profile-form-group profile-form-group-half">
+                <label for="email" class="profile-label"><i class="fas fa-envelope"></i> Email</label>
+                <div class="profile-input-container">
+                  <i class="fas fa-envelope input-icon"></i>
+                  <input type="email" id="email" name="email" class="profile-input" required>
+                </div>
+              </div>
+            </div>
+            
+            <div class="profile-form-group">
+              <label for="bio" class="profile-label"><i class="fas fa-info-circle"></i> Short Bio</label>
+              <div class="profile-input-container">
+                <i class="fas fa-info-circle input-icon"></i>
+                <textarea id="bio" name="bio" rows="2" class="profile-textarea"></textarea>
+              </div>
+            </div>
+            
+            <div class="profile-form-row">
+              <div class="profile-form-group profile-form-group-third">
+                <label for="dob" class="profile-label"><i class="fas fa-birthday-cake"></i> Date of Birth</label>
+                <div class="profile-input-container">
+                  <i class="fas fa-birthday-cake input-icon"></i>
+                  <input type="text" id="dob" name="dob" class="profile-input" placeholder="DD, MMM YYYY">
+                </div>
+              </div>
+              
+              <div class="profile-form-group profile-form-group-third">
+                <label for="status" class="profile-label"><i class="fas fa-heart"></i> Relationship Status</label>
+                <div class="profile-input-container">
+                  <i class="fas fa-heart input-icon"></i>
+                  <select id="status" name="status" class="profile-select">
+                    <option value="Single">Single</option>
+                    <option value="Married">Married</option>
+                    <option value="Divorced">Divorced</option>
+                    <option value="Separated">Separated</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div class="profile-form-group profile-form-group-third">
+                <label for="gender" class="profile-label"><i class="fas fa-venus-mars"></i> Gender</label>
+                <div class="profile-input-container">
+                  <i class="fas fa-venus-mars input-icon"></i>
+                  <select id="gender" name="gender" class="profile-select">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                    <option value="Prefer not to say">Prefer not to say</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            
+            <div class="profile-form-group">
+              <label for="phone" class="profile-label"><i class="fas fa-phone"></i> Phone Number</label>
+              <div class="profile-input-container">
+                <i class="fas fa-phone input-icon"></i>
+                <input type="tel" id="phone" name="phone" class="profile-input">
+              </div>
+            </div>
+            
+            <div class="profile-form-group">
+              <label for="avatar" class="profile-label"><i class="fas fa-camera"></i> Profile Picture</label>
+              <div class="profile-file-container">
+                <label for="avatar" class="profile-file-label">
+                  <i class="fas fa-upload"></i> Choose File
+                  <input type="file" id="avatar" name="avatar" class="profile-file-input" accept="image/*">
+                </label>
+                <div class="profile-avatar-preview" id="avatarPreview"></div>
+              </div>
+            </div>
+            
+            <div class="profile-form-actions">
+              <button type="button" class="profile-cancel-btn">
+                <i class="fas fa-times"></i> Cancel
+              </button>
+              <button type="submit" class="profile-save-btn">
+                <i class="fas fa-save"></i> Save Changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    
+    
+
+  <script src="edit_profile.js"></script>
+</body>
+</html>

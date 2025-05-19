@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Persistent Filter Selection</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .search-page-filter-container {
+            background: #ffffff;
+            width: 280px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        
+        .search-page-filter-section {
+            margin-bottom: 25px;
+        }
+        
+        .search-page-filter-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .search-page-filter-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333333;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eeeeee;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+        
+        .search-page-filter-title:hover {
+            color: #4285f4;
+        }
+        
+        .search-page-title-caret {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            margin-left: 8px;
+            border-top: 5px solid;
+            border-right: 5px solid transparent;
+            border-left: 5px solid transparent;
+            transition: transform 0.2s;
+        }
+        
+        .search-page-title-caret.collapsed {
+            transform: rotate(-90deg);
+        }
+        
+        .search-page-filter-content {
+            overflow: hidden;
+            transition: max-height 0.3s ease, opacity 0.2s ease;
+        }
+        
+        .search-page-filter-content.collapsed {
+            max-height: 0 !important;
+            opacity: 0;
+        }
+        
+        .search-page-toggle-all {
+            display: block;
+            padding: 6px 0;
+            font-weight: 500;
+            color: #4285f4;
+            text-decoration: none;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .search-page-filter-list {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 0 0;
+        }
+        
+        .search-page-filter-list > li {
+            margin: 8px 0;
+        }
+        
+        .search-page-category-toggle {
+            font-weight: 500;
+            color: #333333;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .search-page-sub-list {
+            list-style: none;
+            padding-left: 20px;
+            margin: 5px 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .search-page-filter-item {
+            display: block;
+            padding: 4px 0;
+            color: #555555;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .search-page-filter-item:hover, 
+        .search-page-filter-item.active {
+            color: #4285f4;
+        }
+        
+        .search-page-active-items-container {
+            margin-top: 10px;
+            border-top: 1px dashed #eeeeee;
+            padding-top: 10px;
+        }
+        
+        .search-page-active-item {
+            display: inline-block;
+            background-color: #f0f7ff;
+            color: #4285f4;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 13px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .search-page-show-more {
+            background: none;
+            border: none;
+            color: #4285f4;
+            cursor: pointer;
+            padding: 4px 0;
+            text-align: left;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        .search-page-show-more:hover {
+            text-decoration: underline;
+        }
+        
+        .search-page-count {
+            color: #999999;
+            margin-left: 5px;
+            font-size: 13px;
+        }
+        
+        .search-page-caret {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            margin-left: 8px;
+            vertical-align: middle;
+            border-top: 4px solid;
+            border-right: 4px solid transparent;
+            border-left: 4px solid transparent;
+            transition: transform 0.2s;
+        }
+        
+        .search-page-caret.open {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="search-page-filter-container">
+        <div class="search-page-filter-section">
+            <div class="search-page-filter-title" id="categoryTitle">
+                Category
+                <span class="search-page-title-caret"></span>
+            </div>
+            <div class="search-page-filter-content" id="categoryContent">
+                <div class="search-page-toggle-all" id="toggleAllCategories">All Categories</div>
+                <ul class="search-page-filter-list" id="categoryList">
+                    <li>
+                        <div class="search-page-category-toggle">
+                            <span>Mobiles</span>
+                            <span class="search-page-caret"></span>
+                        </div>
+                        <ul class="search-page-sub-list">
+                            <li><a class="search-page-filter-item">Mobile Phones <span class="search-page-count">(33,051)</span></a></li>
+                            <li><a class="search-page-filter-item active">Mobile Phone Accessories <span class="search-page-count">(1,444)</span></a></li>
+                            <li><a class="search-page-filter-item">Wearables <span class="search-page-count">(682)</span></a></li>
+                            <li><a class="search-page-filter-item">SIM Cards <span class="search-page-count">(193)</span></a></li>
+                            <li><a class="search-page-filter-item active">Mobile Phone Services <span class="search-page-count">(7)</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-page-active-items-container" id="categoryActiveItems">
+                    <span class="search-page-active-item">Mobile Phone Accessories <span class="search-page-count">(1,444)</span></span>
+                    <span class="search-page-active-item">Mobile Phone Services <span class="search-page-count">(7)</span></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="search-page-filter-section">
+            <div class="search-page-filter-title" id="locationTitle">
+                Location
+                <span class="search-page-title-caret"></span>
+            </div>
+            <div class="search-page-filter-content" id="locationContent">
+                <div class="search-page-toggle-all" id="toggleAllLocations">All of Bangladesh</div>
+                <ul class="search-page-filter-list" id="locationList">
+                    <li>
+                        <div class="search-page-category-toggle">
+                            <span>Dhaka</span>
+                            <span class="search-page-caret open"></span>
+                        </div>
+                        <ul class="search-page-sub-list" style="max-height: 500px;">
+                            <li><a class="search-page-filter-item">Mirpur <span class="search-page-count">(8,225)</span></a></li>
+                            <li><a class="search-page-filter-item">Jatrabari <span class="search-page-count">(3,733)</span></a></li>
+                            <li><a class="search-page-filter-item">Savar <span class="search-page-count">(3,731)</span></a></li>
+                            <li><a class="search-page-filter-item">Uttara <span class="search-page-count">(3,515)</span></a></li>
+                            <li><a class="search-page-filter-item">Mohammadpur <span class="search-page-count">(1,925)</span></a></li>
+                            <li><button class="search-page-show-more">Show more</button></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-page-active-items-container" id="locationActiveItems">
+                    <!-- Active location items will appear here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Track active filters
+            const activeFilters = {
+                category: new Set(),
+                location: new Set()
+            };
+            
+            // Toggle entire category section when title is clicked
+            const categoryTitle = document.getElementById('categoryTitle');
+            const categoryContent = document.getElementById('categoryContent');
+            const categoryCaret = categoryTitle.querySelector('.search-page-title-caret');
+            
+            categoryTitle.addEventListener('click', function() {
+                categoryContent.classList.toggle('collapsed');
+                categoryCaret.classList.toggle('collapsed');
+                
+                // Set initial max-height if expanding
+                if (!categoryContent.classList.contains('collapsed')) {
+                    categoryContent.style.maxHeight = categoryContent.scrollHeight + 'px';
+                }
+            });
+            
+            // Toggle entire location section when title is clicked
+            const locationTitle = document.getElementById('locationTitle');
+            const locationContent = document.getElementById('locationContent');
+            const locationCaret = locationTitle.querySelector('.search-page-title-caret');
+            
+            locationTitle.addEventListener('click', function() {
+                locationContent.classList.toggle('collapsed');
+                locationCaret.classList.toggle('collapsed');
+                
+                // Set initial max-height if expanding
+                if (!locationContent.classList.contains('collapsed')) {
+                    locationContent.style.maxHeight = locationContent.scrollHeight + 'px';
+                }
+            });
+            
+            // Toggle all categories
+            const toggleAllCategories = document.getElementById('toggleAllCategories');
+            const categoryList = document.getElementById('categoryList');
+            
+            toggleAllCategories.addEventListener('click', function() {
+                const isHidden = categoryList.style.display === 'none';
+                categoryList.style.display = isHidden ? 'block' : 'none';
+                this.textContent = isHidden ? 'All Categories' : 'Show Categories';
+                
+                // Update content height
+                if (!categoryContent.classList.contains('collapsed')) {
+                    categoryContent.style.maxHeight = categoryContent.scrollHeight + 'px';
+                }
+            });
+            
+            // Toggle all locations
+            const toggleAllLocations = document.getElementById('toggleAllLocations');
+            const locationList = document.getElementById('locationList');
+            
+            toggleAllLocations.addEventListener('click', function() {
+                const isHidden = locationList.style.display === 'none';
+                locationList.style.display = isHidden ? 'block' : 'none';
+                this.textContent = isHidden ? 'All of Bangladesh' : 'Show Locations';
+                
+                // Update content height
+                if (!locationContent.classList.contains('collapsed')) {
+                    locationContent.style.maxHeight = locationContent.scrollHeight + 'px';
+                }
+            });
+            
+            // Toggle individual category sections
+            document.querySelectorAll('.search-page-category-toggle').forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    const subList = this.nextElementSibling;
+                    const caret = this.querySelector('.search-page-caret');
+                    
+                    if (subList && subList.classList.contains('search-page-sub-list')) {
+                        if (subList.style.maxHeight) {
+                            subList.style.maxHeight = null;
+                            caret.classList.remove('open');
+                        } else {
+                            subList.style.maxHeight = subList.scrollHeight + 'px';
+                            caret.classList.add('open');
+                        }
+                        
+                        // Update parent content height
+                        const parentContent = this.closest('.search-page-filter-content');
+                        if (parentContent && !parentContent.classList.contains('collapsed')) {
+                            parentContent.style.maxHeight = parentContent.scrollHeight + 'px';
+                        }
+                    }
+                });
+            });
+            
+            // Set active state for filter items
+            document.querySelectorAll('.search-page-filter-item').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Toggle active class
+                    this.classList.toggle('active');
+                    
+                    const filterType = this.closest('.search-page-filter-section') ? 
+                                      (this.closest('.search-page-filter-section').querySelector('.search-page-filter-title').textContent.trim().toLowerCase()) : 
+                                      'category';
+                    const itemText = this.textContent.trim();
+                    
+                    // Update active filters
+                    if (this.classList.contains('active')) {
+                        activeFilters[filterType].add(itemText);
+                    } else {
+                        activeFilters[filterType].delete(itemText);
+                    }
+                    
+                    // Update active items display
+                    updateActiveItemsDisplay(filterType);
+                    
+                    // In a real implementation, you would filter results here
+                    console.log('Active filters:', activeFilters);
+                });
+            });
+            
+            // Function to update the visible active items
+            function updateActiveItemsDisplay(filterType) {
+                const containerId = `${filterType}ActiveItems`;
+                const container = document.getElementById(containerId);
+                
+                if (container) {
+                    container.innerHTML = '';
+                    activeFilters[filterType].forEach(itemText => {
+                        const activeItem = document.createElement('span');
+                        activeItem.className = 'search-page-active-item';
+                        activeItem.textContent = itemText;
+                        container.appendChild(activeItem);
+                    });
+                    
+                    // Update content height if needed
+                    const content = container.closest('.search-page-filter-content');
+                    if (content && !content.classList.contains('collapsed')) {
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                    }
+                }
+            }
+            
+            // "Show more" functionality
+            const showMoreBtn = document.querySelector('.search-page-show-more');
+            if (showMoreBtn) {
+                showMoreBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // In a real implementation, you would fetch more locations here
+                    alert('Show more locations would be loaded here');
+                });
+            }
+            
+            // Initialize all sublists with proper heights
+            document.querySelectorAll('.search-page-sub-list').forEach(list => {
+                if (list.style.maxHeight !== '0px' && !list.style.maxHeight) {
+                    list.style.maxHeight = list.scrollHeight + 'px';
+                }
+            });
+            
+            // Initialize with some active filters (as shown in the example)
+            activeFilters.category.add('Mobile Phone Accessories (1,444)');
+            activeFilters.category.add('Mobile Phone Services (7)');
+            updateActiveItemsDisplay('category');
+        });
+    </script>
+</body>
+</html>

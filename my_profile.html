@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Card with Icons</title>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .profile-card {
+            width: 320px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .profile-header {
+            padding: 25px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: white;
+        }
+        
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.2);
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: white;
+            border: 3px solid white;
+        }
+        
+        h1 {
+            margin: 10px 0 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .profile-details {
+            padding: 20px;
+        }
+        
+        .detail-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #555;
+        }
+        
+        .detail-icon {
+            width: 24px;
+            text-align: center;
+            margin-right: 12px;
+            color: #6e8efb;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .stat-value {
+            font-weight: bold;
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 3px;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #777;
+        }
+        
+        .stat-icon {
+            color: #a777e3;
+            margin-bottom: 5px;
+            font-size: 18px;
+        }
+        
+        .recent-activity {
+            padding: 20px;
+        }
+        
+        .recent-activity h3 {
+            margin: 0 0 15px 0;
+            font-size: 16px;
+            color: #333;
+            display: flex;
+            align-items: center;
+        }
+        
+        .recent-activity h3 i {
+            margin-right: 8px;
+            color: #6e8efb;
+        }
+        
+        .divider {
+            height: 1px;
+            background-color: #eee;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-card">
+        <div class="profile-header">
+            <div class="profile-pic"><i class="fas fa-user"></i></div>
+            <h1>Mehedi Hasan</h1>
+        </div>
+        
+        <div class="profile-details">
+            <div class="detail-item">
+                <div class="detail-icon"><i class="fas fa-trophy"></i></div>
+                <div><strong>Level:</strong> 51</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-icon"><i class="fas fa-venus-mars"></i></div>
+                <div><strong>Gender:</strong> Male</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-icon"><i class="fas fa-birthday-cake"></i></div>
+                <div><strong>Age:</strong> 32 years</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-icon"><i class="fas fa-ring"></i></div>
+                <div><strong>Status:</strong> Married</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-icon"><i class="fas fa-map-marker-alt"></i></div>
+                <div><strong>Location:</strong> Afghanistan</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-icon"><i class="fas fa-envelope"></i></div>
+                <div><strong>Email:</strong> mehedi...@gmail.com</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-icon"><i class="fas fa-calendar-alt"></i></div>
+                <div><strong>Member since:</strong> June 2021</div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-icon"><i class="fas fa-user-friends"></i></div>
+                <div class="stat-value">38</div>
+                <div class="stat-label">Friends</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon"><i class="fas fa-newspaper"></i></div>
+                <div class="stat-value">13</div>
+                <div class="stat-label">Posts</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon"><i class="fas fa-gift"></i></div>
+                <div class="stat-value">3K</div>
+                <div class="stat-label">Gifts</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon"><i class="fas fa-shoe-prints"></i></div>
+                <div class="stat-value">253</div>
+                <div class="stat-label">Footprint</div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="recent-activity">
+            <h3><i class="fas fa-clock"></i> Recent Activity</h3>
+            <!-- Activity items would go here -->
+            <div style="color: #777; font-size: 13px; text-align: center; padding: 10px;">
+                No recent activity to show
+            </div>
+        </div>
+    </div>
+</body>
+</html>
