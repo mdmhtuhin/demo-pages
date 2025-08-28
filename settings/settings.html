@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp-like Settings UI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            background-color: #f7f8fa;
+            color: #111;
+            line-height: 1.5;
+        }
+        
+        .demo-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px 16px;
+        }
+        
+        .demo-header {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            padding-left: 8px;
+        }
+        
+        .demo-section-title {
+            font-size: 17px;
+            font-weight: 500;
+            margin: 24px 0 12px 8px;
+            color: #111;
+        }
+        
+        .demo-subsection-title {
+            font-size: 15px;
+            font-weight: 400;
+            margin: 16px 0 8px 8px;
+            color: #666;
+        }
+        
+        .demo-divider {
+            height: 1px;
+            background-color: #e8e8e8;
+            margin: 16px 0;
+        }
+        
+        .demo-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 8px 0;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+        
+        .demo-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            position: relative;
+        }
+        
+        .demo-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 16px;
+            right: 16px;
+            height: 0.5px;
+            background-color: #f0f0f0;
+        }
+        
+        .demo-item-content {
+            flex: 1;
+            padding-right: 12px;
+        }
+        
+        .demo-item-title {
+            font-size: 16px;
+            margin-bottom: 2px;
+        }
+        
+        .demo-item-subtitle {
+            font-size: 13px;
+            color: #999;
+        }
+        
+        /* Switch styling */
+        .demo-switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+        
+        .demo-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .demo-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .demo-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .demo-slider {
+            background-color: #00a884;
+        }
+        
+        input:checked + .demo-slider:before {
+            transform: translateX(20px);
+        }
+        
+        /* Chevron for navigation items */
+        .demo-chevron {
+            color: #999;
+            font-size: 18px;
+        }
+        
+        /* Account section specific styling */
+        .demo-account-section .demo-item {
+            padding: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1 class="demo-header">Demo</h1>
+        
+        <!-- Enable Mention Notification Section -->
+        <div class="demo-section">
+            <h2 class="demo-section-title">Demo Section</h2>
+            
+            <div>
+                <h3 class="demo-subsection-title">Demo Subsection</h3>
+                
+                <div class="demo-item">
+                    <div class="demo-item-content">
+                        <div class="demo-item-title">Demo Item</div>
+                    </div>
+                    <label class="demo-switch">
+                        <input type="checkbox" checked>
+                        <span class="demo-slider"></span>
+                    </label>
+                </div>
+                
+                <div class="demo-item">
+                    <div class="demo-item-content">
+                        <div class="demo-item-title">Demo Item</div>
+                    </div>
+                    <label class="demo-switch">
+                        <input type="checkbox">
+                        <span class="demo-slider"></span>
+                    </label>
+                </div>
+                
+                <div class="demo-item">
+                    <div class="demo-item-content">
+                        <div class="demo-item-title">Demo Item</div>
+                    </div>
+                    <span class="demo-chevron">›</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="demo-divider"></div>
+        
+        <!-- Classic Chat Mode Section -->
+        <div class="demo-section">
+            <h2 class="demo-section-title">Demo Section</h2>
+            
+            <div>
+                <h3 class="demo-subsection-title">Demo Subsection</h3>
+                
+                <div class="demo-item">
+                    <div class="demo-item-content">
+                        <div class="demo-item-title">Demo Item</div>
+                    </div>
+                    <label class="demo-switch">
+                        <input type="checkbox" checked>
+                        <span class="demo-slider"></span>
+                    </label>
+                </div>
+                
+                <div class="demo-item">
+                    <div class="demo-item-content">
+                        <div class="demo-item-title">Demo Item</div>
+                    </div>
+                    <label class="demo-switch">
+                        <input type="checkbox">
+                        <span class="demo-slider"></span>
+                    </label>
+                </div>
+                
+                <div class="demo-item">
+                    <div class="demo-item-content">
+                        <div class="demo-item-title">Demo Item</div>
+                    </div>
+                    <span class="demo-chevron">›</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="demo-divider"></div>
+        
+        <!-- Miscellaneous Section -->
+        <div class="demo-section">
+            <div class="demo-item">
+                <div class="demo-item-content">
+                    <div class="demo-item-title">Demo Item</div>
+                    <div class="demo-item-subtitle">Demo subtitle</div>
+                </div>
+                <span class="demo-chevron">›</span>
+            </div>
+            
+            <div class="demo-item">
+                <div class="demo-item-content">
+                    <div class="demo-item-title">Demo Item</div>
+                    <div class="demo-item-subtitle">Demo subtitle</div>
+                </div>
+                <span class="demo-chevron">›</span>
+            </div>
+            
+            <div class="demo-item">
+                <div class="demo-item-content">
+                    <div class="demo-item-title">Demo Item</div>
+                </div>
+                <label class="demo-switch">
+                    <input type="checkbox">
+                    <span class="demo-slider"></span>
+                </label>
+            </div>
+            
+            <div class="demo-item">
+                <div class="demo-item-content">
+                    <div class="demo-item-title">Demo Item</div>
+                </div>
+                <label class="demo-switch">
+                    <input type="checkbox" checked>
+                    <span class="demo-slider"></span>
+                </label>
+            </div>
+        </div>
+        
+        <!-- Account Settings Section -->
+        <div class="demo-section demo-account-section">
+            <h2 class="demo-section-title">Demo Section</h2>
+            
+            <div class="demo-item">
+                <div class="demo-item-content">
+                    <div class="demo-item-title">Demo Item</div>
+                </div>
+                <span class="demo-chevron">›</span>
+            </div>
+            
+            <div class="demo-item">
+                <div class="demo-item-content">
+                    <div class="demo-item-title">Demo Item</div>
+                </div>
+                <span class="demo-chevron">›</span>
+            </div>
+            
+            <div class="demo-item">
+                <div class="demo-item-content">
+                    <div class="demo-item-title">Demo Item</div>
+                </div>
+                <span class="demo-chevron">›</span>
+            </div>
+            
+            <div class="demo-item">
+                <div class="demo-item-content">
+                    <div class="demo-item-title">Demo Item</div>
+                </div>
+                <label class="demo-switch">
+                    <input type="checkbox" checked>
+                    <span class="demo-slider"></span>
+                </label>
+            </div>
+            
+            <div class="demo-item">
+                <div class="demo-item-content">
+                    <div class="demo-item-title">Demo Item</div>
+                </div>
+                <span class="demo-chevron">›</span>
+            </div>
+            
+            <div class="demo-item">
+                <div class="demo-item-content">
+                    <div class="demo-item-title">Demo Item</div>
+                </div>
+                <span class="demo-chevron">›</span>
+            </div>
+            
+            <div class="demo-item">
+                <div class="demo-item-content">
+                    <div class="demo-item-title">Demo Item</div>
+                </div>
+                <span class="demo-chevron">›</span>
+            </div>
+        </div>
+        
+        <!-- Notification Settings Section -->
+        <div class="demo-section">
+            <h2 class="demo-section-title">Demo Section</h2>
+            
+            <div class="demo-item">
+                <div class="demo-item-content">
+                    <div class="demo-item-title">Demo Item</div>
+                </div>
+                <label class="demo-switch">
+                    <input type="checkbox" checked>
+                    <span class="demo-slider"></span>
+                </label>
+            </div>
+            
+            <div class="demo-item">
+                <div class="demo-item-content">
+                    <div class="demo-item-title">Demo Item</div>
+                </div>
+                <label class="demo-switch">
+                    <input type="checkbox">
+                    <span class="demo-slider"></span>
+                </label>
+            </div>
+            
+            <div class="demo-item">
+                <div class="demo-item-content">
+                    <div class="demo-item-title">Demo Item</div>
+                </div>
+                <label class="demo-switch">
+                    <input type="checkbox" checked>
+                    <span class="demo-slider"></span>
+                </label>
+            </div>
+            
+            <div class="demo-item">
+                <div class="demo-item-content">
+                    <div class="demo-item-title">Demo Item</div>
+                </div>
+                <span class="demo-chevron">›</span>
+            </div>
+            
+            <div class="demo-item">
+                <div class="demo-item-content">
+                    <div class="demo-item-title">Demo Item</div>
+                </div>
+                <label class="demo-switch">
+                    <input type="checkbox" checked>
+                    <span class="demo-slider"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add interactivity to switches
+        document.querySelectorAll('.demo-switch input').forEach(switchInput => {
+            switchInput.addEventListener('change', function() {
+                // You can add functionality here to save the preference
+                console.log(`Switch ${this.checked ? 'enabled' : 'disabled'}`);
+            });
+        });
+        
+        // Add click handlers for navigation items
+        document.querySelectorAll('.demo-item:not(.demo-switch)').forEach(item => {
+            if (item.querySelector('.demo-chevron')) {
+                item.addEventListener('click', function() {
+                    const title = this.querySelector('.demo-item-title').textContent;
+                    console.log(`Navigating to ${title} settings`);
+                    // In a real app, you would navigate to the appropriate page
+                });
+            }
+        });
+    </script>
+</body>
+</html>

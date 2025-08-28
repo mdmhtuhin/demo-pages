@@ -6,7 +6,7 @@
   <title>CSS-Only Dropdown</title>
   <style>
     /* Dropdown Button */
-    .gifts-dropdown-btn {
+    .custom-dropdown-gifts-dropdown-btn {
       background-color: #4CAF50;
       color: white;
       padding: 12px 16px;
@@ -18,12 +18,12 @@
       transition: background-color 0.3s;
     }
 
-    .gifts-dropdown-btn:hover {
+    .custom-dropdown-gifts-dropdown-btn:hover {
       background-color: #3e8e41;
     }
 
     /* Dropdown container */
-    .gifts-dropdown {
+    .custom-dropdown-gifts-dropdown {
       position: relative;
       display: inline-block;
       margin: 20px;
@@ -35,7 +35,7 @@
     }
 
     /* Dropdown Content */
-    .gifts-dropdown-content {
+    .custom-dropdown-gifts-dropdown-content {
       display: none;
       position: absolute;
       background-color: #f9f9f9;
@@ -47,7 +47,7 @@
     }
 
     /* Links inside the dropdown */
-    .gifts-dropdown-content a {
+    .custom-dropdown-gifts-dropdown-content a {
       color: black;
       padding: 12px 16px;
       text-decoration: none;
@@ -56,32 +56,32 @@
     }
 
     /* Change color of dropdown links on hover */
-    .gifts-dropdown-content a:hover {
+    .custom-dropdown-gifts-dropdown-content a:hover {
       background-color: #ddd;
     }
 
     /* Show dropdown when checkbox is checked */
-    #gifts-dropdown-toggle:checked ~ .gifts-dropdown-content {
+    #gifts-dropdown-toggle:checked ~ .custom-dropdown-gifts-dropdown-content {
       display: block;
     }
 
     /* Down arrow indicator */
-    .gifts-dropdown-btn::after {
+    .custom-dropdown-gifts-dropdown-btn::after {
       content: "▼";
       font-size: 10px;
       margin-left: 8px;
     }
 
-    #gifts-dropdown-toggle:checked + .gifts-dropdown-btn::after {
+    #gifts-dropdown-toggle:checked + .custom-dropdown-gifts-dropdown-btn::after {
       content: "▲";
     }
   </style>
 </head>
 <body>
-  <div class="gifts-dropdown">
+  <div class="custom-dropdown-gifts-dropdown">
     <input type="checkbox" id="gifts-dropdown-toggle">
-    <label for="gifts-dropdown-toggle" class="gifts-dropdown-btn">Select Option</label>
-    <div class="gifts-dropdown-content">
+    <label for="gifts-dropdown-toggle" class="custom-dropdown-gifts-dropdown-btn">Select Option</label>
+    <div class="custom-dropdown-gifts-dropdown-content">
       <a href="#">Option 1</a>
       <a href="#">Option 2</a>
       <a href="#">Option 3</a>
