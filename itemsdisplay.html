@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gift Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        
+        .filter-header {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .filter-group {
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .filter-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #555;
+            font-size: 14px;
+        }
+        
+        .filter-group input, .filter-group select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        .filter-group input:focus, .filter-group select:focus {
+            border-color: #ff6b6b;
+        }
+        
+        .search-container {
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .search-container input {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        .search-container input:focus {
+            border-color: #ff6b6b;
+        }
+        
+        .search-container i {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+        
+        .instruction {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        
+        .divider {
+            height: 1px;
+            background-color: #eee;
+            margin: 20px 0;
+        }
+        
+        .gift-section {
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            font-size: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .gift-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        
+        .gift-item {
+            background-color: #fff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .gift-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gift-item:active {
+            transform: scale(0.98);
+        }
+        
+        .gift-icon {
+            font-size: 30px;
+            margin-bottom: 10px;
+            color: #ff6b6b;
+        }
+        
+        .gift-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .gift-price {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .gift-date {
+            color: #999;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        
+        .reset-filters {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .reset-filters:hover {
+            background-color: #ff5252;
+        }
+        
+        @media (max-width: 600px) {
+            .gift-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .filter-group {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gift Store</h1>
+        
+        <div class="filter-header">
+            <div class="filter-group">
+                <label for="name-filter">Filter by Name</label>
+                <input type="text" id="name-filter" placeholder="Gift name...">
+            </div>
+            
+            <div class="filter-group">
+                <label for="price-filter">Filter by Price</label>
+                <select id="price-filter">
+                    <option value="">All Prices</option>
+                    <option value="0-10">$0 - $10</option>
+                    <option value="10-50">$10 - $50</option>
+                    <option value="50-100">$50 - $100</option>
+                    <option value="100+">$100+</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="date-filter">Filter by Date</label>
+                <select id="date-filter">
+                    <option value="">All Dates</option>
+                    <option value="today">Today</option>
+                    <option value="week">This Week</option>
+                    <option value="month">This Month</option>
+                    <option value="year">This Year</option>
+                </select>
+            </div>
+            
+            <button class="reset-filters" id="reset-filters">Reset Filters</button>
+        </div>
+        
+        <div class="search-container">
+            <input type="text" placeholder="Search Gifts..." id="search-input">
+            <i class="fas fa-search"></i>
+        </div>
+        
+        <p class="instruction">Long press on a gift icon to copy the gift name</p>
+        
+        <div class="divider"></div>
+        
+        <div class="gift-section">
+            <h2 class="section-title">Welcome</h2>
+            <div class="gift-list">
+                <div class="gift-item" data-gift="Money" data-price="25.0" data-date="2025-05-19">
+                    <div class="gift-icon"><i class="fas fa-money-bill-wave"></i></div>
+                    <div class="gift-name">Money</div>
+                    <div class="gift-price">25.0</div>
+                    <div class="gift-date">Added: 2025-05-19</div>
+                </div>
+                <div class="gift-item" data-gift="Welcome" data-price="5.0" data-date="2025-05-18">
+                    <div class="gift-icon"><i class="fas fa-handshake"></i></div>
+                    <div class="gift-name">Welcome</div>
+                    <div class="gift-price">5.0</div>
+                    <div class="gift-date">Added: 2025-05-18</div>
+                </div>
+                <div class="gift-item" data-gift="Canja" data-price="3.0" data-date="2025-05-17">
+                    <div class="gift-icon"><i class="fas fa-utensils"></i></div>
+                    <div class="gift-name">Canja</div>
+                    <div class="gift-price">3.0</div>
+                    <div class="gift-date">Added: 2025-05-17</div>
+                </div>
+                <div class="gift-item" data-gift="Hug" data-price="5.0" data-date="2025-05-16">
+                    <div class="gift-icon"><i class="fas fa-heart"></i></div>
+                    <div class="gift-name">Hug</div>
+                    <div class="gift-price">5.0</div>
+                    <div class="gift-date">Added: 2025-05-16</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="gift-section">
+            <h2 class="section-title">Big Kiss <span>49.0</span></h2>
+            <div class="gift-list">
+                <div class="gift-item" data-gift="Cube" data-price="10.0" data-date="2025-05-15">
+                    <div class="gift-icon"><i class="fas fa-cube"></i></div>
+                    <div class="gift-name">Cube</div>
+                    <div class="gift-price">10.0</div>
+                    <div class="gift-date">Added: 2025-05-15</div>
+                </div>
+                <div class="gift-item" data-gift="Coffee" data-price="5.0" data-date="2025-05-14">
+                    <div class="gift-icon"><i class="fas fa-coffee"></i></div>
+                    <div class="gift-name">Coffee</div>
+                    <div class="gift-price">5.0</div>
+                    <div class="gift-date">Added: 2025-05-14</div>
+                </div>
+                <div class="gift-item" data-gift="Heart" data-price="5.0" data-date="2025-05-13">
+                    <div class="gift-icon"><i class="fas fa-heart"></i></div>
+                    <div class="gift-name">Heart</div>
+                    <div class="gift-price">5.0</div>
+                    <div class="gift-date">Added: 2025-05-13</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="gift-section">
+            <h2 class="section-title">Apple <span>5.0</span></h2>
+            <div class="gift-list">
+                <div class="gift-item" data-gift="Banana" data-price="20.0" data-date="2025-05-12">
+                    <div class="gift-icon"><i class="fas fa-apple-alt"></i></div>
+                    <div class="gift-name">Banana</div>
+                    <div class="gift-price">20.0</div>
+                    <div class="gift-date">Added: 2025-05-12</div>
+                </div>
+                <div class="gift-item" data-gift="Burger" data-price="5.0" data-date="2025-05-11">
+                    <div class="gift-icon"><i class="fas fa-hamburger"></i></div>
+                    <div class="gift-name">Burger</div>
+                    <div class="gift-price">5.0</div>
+                    <div class="gift-date">Added: 2025-05-11</div>
+                </div>
+                <div class="gift-item" data-gift="Cocacola" data-price="5.0" data-date="2025-05-10">
+                    <div class="gift-icon"><i class="fas fa-wine-bottle"></i></div>
+                    <div class="gift-name">Cocacola</div>
+                    <div class="gift-price">5.0</div>
+                    <div class="gift-date">Added: 2025-05-10</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="gift-section">
+            <h2 class="section-title">Congratulations <span>5.0</span></h2>
+            <div class="gift-list">
+                <div class="gift-item" data-gift="Fanta" data-price="5.0" data-date="2025-05-09">
+                    <div class="gift-icon"><i class="fas fa-wine-bottle"></i></div>
+                    <div class="gift-name">Fanta</div>
+                    <div class="gift-price">5.0</div>
+                    <div class="gift-date">Added: 2025-05-09</div>
+                </div>
+                <div class="gift-item" data-gift="Joker" data-price="5.0" data-date="2025-05-08">
+                    <div class="gift-icon"><i class="fas fa-grin-squint-tears"></i></div>
+                    <div class="gift-name">Joker</div>
+                    <div class="gift-price">5.0</div>
+                    <div class="gift-date">Added: 2025-05-08</div>
+                </div>
+                <div class="gift-item" data-gift="Mango" data-price="5.0" data-date="2025-05-07">
+                    <div class="gift-icon"><i class="fas fa-apple-alt"></i></div>
+                    <div class="gift-name">Mango</div>
+                    <div class="gift-price">5.0</div>
+                    <div class="gift-date">Added: 2025-05-07</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="gift-section">
+            <h2 class="section-title">Mirinda <span>5.0</span></h2>
+            <div class="gift-list">
+                <div class="gift-item" data-gift="Rolex" data-price="5000.0" data-date="2025-01-01">
+                    <div class="gift-icon"><i class="fas fa-clock"></i></div>
+                    <div class="gift-name">Rolex</div>
+                    <div class="gift-price">5000.0</div>
+                    <div class="gift-date">Added: 2025-01-01</div>
+                </div>
+                <div class="gift-item" data-gift="Rose" data-price="5.0" data-date="2025-02-14">
+                    <div class="gift-icon"><i class="fas fa-rose"></i></div>
+                    <div class="gift-name">Rose</div>
+                    <div class="gift-price">5.0</div>
+                    <div class="gift-date">Added: 2025-02-14</div>
+                </div>
+                <div class="gift-item" data-gift="VIP" data-price="42.0" data-date="2025-03-15">
+                    <div class="gift-icon"><i class="fas fa-crown"></i></div>
+                    <div class="gift-name">VIP</div>
+                    <div class="gift-price">42.0</div>
+                    <div class="gift-date">Added: 2025-03-15</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Long press to copy functionality
+            const giftItems = document.querySelectorAll('.gift-item');
+            let pressTimer;
+            
+            giftItems.forEach(item => {
+                item.addEventListener('mousedown', function(e) {
+                    const giftName = this.getAttribute('data-gift');
+                    pressTimer = setTimeout(() => {
+                        copyToClipboard(giftName);
+                        showCopiedTooltip(this, giftName);
+                    }, 800); // 800ms for long press
+                });
+                
+                item.addEventListener('mouseup', function(e) {
+                    clearTimeout(pressTimer);
+                });
+                
+                item.addEventListener('mouseleave', function(e) {
+                    clearTimeout(pressTimer);
+                });
+                
+                // For touch devices
+                item.addEventListener('touchstart', function(e) {
+                    const giftName = this.getAttribute('data-gift');
+                    pressTimer = setTimeout(() => {
+                        copyToClipboard(giftName);
+                        showCopiedTooltip(this, giftName);
+                        e.preventDefault();
+                    }, 800);
+                });
+                
+                item.addEventListener('touchend', function(e) {
+                    clearTimeout(pressTimer);
+                });
+            });
+            
+            function copyToClipboard(text) {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+            }
+            
+            function showCopiedTooltip(element, text) {
+                const tooltip = document.createElement('div');
+                tooltip.textContent = `Copied: ${text}`;
+                tooltip.style.position = 'absolute';
+                tooltip.style.backgroundColor = 'rgba(0,0,0,0.7)';
+                tooltip.style.color = 'white';
+                tooltip.style.padding = '5px 10px';
+                tooltip.style.borderRadius = '5px';
+                tooltip.style.zIndex = '1000';
+                tooltip.style.bottom = '100%';
+                tooltip.style.left = '50%';
+                tooltip.style.transform = 'translateX(-50%)';
+                
+                element.style.position = 'relative';
+                element.appendChild(tooltip);
+                
+                setTimeout(() => {
+                    tooltip.remove();
+                }, 2000);
+            }
+            
+            // Filter functionality
+            const nameFilter = document.getElementById('name-filter');
+            const priceFilter = document.getElementById('price-filter');
+            const dateFilter = document.getElementById('date-filter');
+            const searchInput = document.getElementById('search-input');
+            const resetFiltersBtn = document.getElementById('reset-filters');
+            
+            // Add event listeners to all filter inputs
+            [nameFilter, priceFilter, dateFilter, searchInput].forEach(filter => {
+                filter.addEventListener('input', applyFilters);
+                filter.addEventListener('change', applyFilters);
+            });
+            
+            // Reset filters button
+            resetFiltersBtn.addEventListener('click', function() {
+                nameFilter.value = '';
+                priceFilter.value = '';
+                dateFilter.value = '';
+                searchInput.value = '';
+                applyFilters();
+            });
+            
+            function applyFilters() {
+                const nameTerm = nameFilter.value.toLowerCase();
+                const priceRange = priceFilter.value;
+                const dateRange = dateFilter.value;
+                const searchTerm = searchInput.value.toLowerCase();
+                const today = new Date();
+                
+                document.querySelectorAll('.gift-item').forEach(item => {
+                    const giftName = item.getAttribute('data-gift').toLowerCase();
+                    const giftPrice = parseFloat(item.getAttribute('data-price'));
+                    const giftDate = new Date(item.getAttribute('data-date'));
+                    
+                    // Calculate date differences
+                    const dateDiff = Math.floor((today - giftDate) / (1000 * 60 * 60 * 24));
+                    const isToday = dateDiff === 0;
+                    const isThisWeek = dateDiff <= 7;
+                    const isThisMonth = giftDate.getMonth() === today.getMonth() && giftDate.getFullYear() === today.getFullYear();
+                    const isThisYear = giftDate.getFullYear() === today.getFullYear();
+                    
+                    // Check name filter
+                    const nameMatch = nameTerm === '' || giftName.includes(nameTerm);
+                    
+                    // Check price filter
+                    let priceMatch = true;
+                    if (priceRange) {
+                        if (priceRange === '0-10') priceMatch = giftPrice >= 0 && giftPrice <= 10;
+                        else if (priceRange === '10-50') priceMatch = giftPrice > 10 && giftPrice <= 50;
+                        else if (priceRange === '50-100') priceMatch = giftPrice > 50 && giftPrice <= 100;
+                        else if (priceRange === '100+') priceMatch = giftPrice > 100;
+                    }
+                    
+                    // Check date filter
+                    let dateMatch = true;
+                    if (dateRange) {
+                        if (dateRange === 'today') dateMatch = isToday;
+                        else if (dateRange === 'week') dateMatch = isThisWeek;
+                        else if (dateRange === 'month') dateMatch = isThisMonth;
+                        else if (dateRange === 'year') dateMatch = isThisYear;
+                    }
+                    
+                    // Check search term
+                    const searchMatch = searchTerm === '' || giftName.includes(searchTerm);
+                    
+                    // Show/hide based on all filters
+                    if (nameMatch && priceMatch && dateMatch && searchMatch) {
+                        item.style.display = 'block';
+                        // Ensure parent section is visible
+                        item.closest('.gift-section').style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                
+                // Hide empty sections
+                document.querySelectorAll('.gift-section').forEach(section => {
+                    const visibleItems = section.querySelectorAll('.gift-item[style="display: block;"]').length;
+                    if (visibleItems === 0) {
+                        section.style.display = 'none';
+                    } else {
+                        section.style.display = 'block';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

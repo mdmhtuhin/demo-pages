@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Rating</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        .user-rating-modal-bg {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.4);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .user-rating-modal-bg.active {
+            display: flex;
+        }
+        
+        .user-rating-container {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 320px;
+            text-align: center;
+            z-index: 1001;
+        }
+        
+        .user-rating-title {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .user-rating-username {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 25px;
+        }
+        
+        .user-rating-stars {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        
+        .user-rating-star {
+            position: relative;
+            font-size: 32px;
+            color: #ccc;
+            cursor: pointer;
+            transition: color 0.2s;
+            display: inline-block;
+        }
+        
+        .user-rating-star .user-rating-star-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            overflow: hidden;
+            color: #ffc107;
+            pointer-events: none;
+            transition: width 0.2s;
+        }
+        
+        .user-rating-star .user-rating-star-bg {
+            color: #ccc;
+        }
+        
+        .user-rating-star.filled .user-rating-star-fill {
+            width: 100%;
+        }
+        
+        .user-rating-instruction {
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .user-rating-textarea {
+            width: 100%;
+            height: 100px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            font-family: inherit;
+            resize: none;
+            margin-bottom: 20px;
+        }
+        
+        .user-rating-submit-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+        
+        .user-rating-submit-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <button class="user-rating-open-btn">Open Rating</button>
+    <div class="user-rating-modal-bg">
+        <div class="user-rating-container">
+            <h2 class="user-rating-title">Rate</h2>
+            <div class="user-rating-username">sajon007</div>
+            <div class="user-rating-stars">
+                <div class="user-rating-star"><span class="user-rating-star-bg">★</span><span class="user-rating-star-fill">★</span></div>
+                <div class="user-rating-star"><span class="user-rating-star-bg">★</span><span class="user-rating-star-fill">★</span></div>
+                <div class="user-rating-star"><span class="user-rating-star-bg">★</span><span class="user-rating-star-fill">★</span></div>
+                <div class="user-rating-star"><span class="user-rating-star-bg">★</span><span class="user-rating-star-fill">★</span></div>
+                <div class="user-rating-star"><span class="user-rating-star-bg">★</span><span class="user-rating-star-fill">★</span></div>
+            </div>
+            <div class="user-rating-instruction">Tap or hover these stars to rate</div>
+            <textarea class="user-rating-textarea" placeholder="Comment about sajon007"></textarea>
+            <button class="user-rating-submit-btn">Submit</button>
+            <button class="user-rating-close-btn" style="margin-top:10px;">Close</button>
+        </div>
+    </div>
+    <script>
+        // Modal logic
+        const openBtn = document.querySelector('.user-rating-open-btn');
+        const modalBg = document.querySelector('.user-rating-modal-bg');
+        const closeBtn = document.querySelector('.user-rating-close-btn');
+        openBtn.addEventListener('click', () => {
+            modalBg.classList.add('active');
+        });
+        closeBtn.addEventListener('click', () => {
+            modalBg.classList.remove('active');
+        });
+        modalBg.addEventListener('click', (e) => {
+            if (e.target === modalBg) {
+                modalBg.classList.remove('active');
+            }
+        });
+        
+        // Rating logic
+        const stars = document.querySelectorAll('.user-rating-star');
+        const starsContainer = document.querySelector('.user-rating-stars');
+        let currentRating = 0;
+        let hoverRating = 0;
+
+        function setStars(rating) {
+            stars.forEach((star, i) => {
+                const fill = star.querySelector('.user-rating-star-fill');
+                star.classList.remove('filled', 'partial');
+                fill.style.width = '';
+                if (rating >= i + 1) {
+                    star.classList.add('filled');
+                    fill.style.width = '100%';
+                } else if (rating > i) {
+                    star.classList.add('partial');
+                    fill.style.width = ((rating - i) * 100) + '%';
+                }
+            });
+        }
+
+        stars.forEach((star, i) => {
+            star.addEventListener('mousemove', (e) => {
+                const rect = star.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const percent = x / rect.width;
+                hoverRating = i + percent;
+                setStars(hoverRating);
+            });
+            star.addEventListener('mouseleave', () => {
+                setStars(currentRating);
+            });
+            star.addEventListener('click', (e) => {
+                const rect = star.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const percent = x / rect.width;
+                currentRating = Math.round((i + percent) * 10) / 10; // one decimal
+                setStars(currentRating);
+            });
+        });
+        starsContainer.addEventListener('mouseleave', () => {
+            setStars(currentRating);
+        });
+        setStars(currentRating);
+    </script>
+</body>
+</html>

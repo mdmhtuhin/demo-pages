@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook-like Reactions</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+        }
+        
+        .reaction-container {
+            position: relative;
+            display: inline-block;
+            margin: 20px;
+        }
+        
+        .like-btn {
+            padding: 8px 15px;
+            border-radius: 20px;
+            background: #ffffff;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            border: 1px solid #dddfe2;
+            font-size: 14px;
+            font-weight: 600;
+            color: #65676b;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .like-btn:hover {
+            background: #f2f3f5;
+            transform: translateY(-2px);
+        }
+        
+        .reactions-panel {
+            position: absolute;
+            bottom: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 30px;
+            padding: 8px 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 100;
+            white-space: nowrap;
+        }
+        
+        .reaction {
+            width: 40px;
+            height: 40px;
+            margin: 0 2px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+        
+        .reaction:hover {
+            transform: scale(1.4) translateY(-10px);
+        }
+        
+        .selected-reaction {
+            margin-left: 6px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+        }
+        
+        /* Tooltip style for reactions */
+        .reaction::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        
+        .reaction:hover::after {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="reaction-container">
+        <div class="like-btn">
+            <span id="like-text">Like</span>
+            <img id="selected-reaction" class="selected-reaction" src="" style="display: none;">
+        </div>
+        <div class="reactions-panel">
+            <img class="reaction" src="https://static.xx.fbcdn.net/images/emoji.php/v9/t72/1.5/32/1f44d.png" alt="Like" data-type="like" data-tooltip="Like">
+            <img class="reaction" src="https://static.xx.fbcdn.net/images/emoji.php/v9/tf3/1.5/32/1f603.png" alt="Love" data-type="love" data-tooltip="Love">
+            <img class="reaction" src="https://static.xx.fbcdn.net/images/emoji.php/v9/tb/1.5/32/1f604.png" alt="Haha" data-type="haha" data-tooltip="Haha">
+            <img class="reaction" src="https://static.xx.fbcdn.net/images/emoji.php/v9/t9e/1.5/32/1f605.png" alt="Wow" data-type="wow" data-tooltip="Wow">
+            <img class="reaction" src="https://static.xx.fbcdn.net/images/emoji.php/v9/t2a/1.5/32/1f622.png" alt="Sad" data-type="sad" data-tooltip="Sad">
+            <img class="reaction" src="https://static.xx.fbcdn.net/images/emoji.php/v9/t3c/1.5/32/1f620.png" alt="Angry" data-type="angry" data-tooltip="Angry">
+        </div>
+    </div>
+
+    <script>
+        const likeBtn = document.querySelector('.like-btn');
+        const reactionsPanel = document.querySelector('.reactions-panel');
+        const reactions = document.querySelectorAll('.reaction');
+        const likeText = document.getElementById('like-text');
+        const selectedReaction = document.getElementById('selected-reaction');
+        
+        let currentReaction = null;
+        let reactionTimeout;
+        
+        // Show reactions on hover
+        likeBtn.addEventListener('mouseenter', () => {
+            clearTimeout(reactionTimeout);
+            reactionsPanel.style.display = 'block';
+        });
+        
+        // Hide reactions with delay when leaving button
+        likeBtn.addEventListener('mouseleave', () => {
+            reactionTimeout = setTimeout(() => {
+                if (!reactionsPanel.matches(':hover')) {
+                    reactionsPanel.style.display = 'none';
+                }
+            }, 300);
+        });
+        
+        // Hide reactions when leaving panel
+        reactionsPanel.addEventListener('mouseleave', () => {
+            reactionsPanel.style.display = 'none';
+        });
+        
+        // Handle reaction selection
+        reactions.forEach(reaction => {
+            reaction.addEventListener('click', (e) => {
+                const type = e.target.dataset.type;
+                currentReaction = type;
+                
+                // Update button text and icon
+                selectedReaction.src = e.target.src;
+                selectedReaction.style.display = 'inline';
+                
+                // Change text based on reaction
+                const reactionTexts = {
+                    'like': 'Like',
+                    'love': 'Love',
+                    'haha': 'Haha',
+                    'wow': 'Wow',
+                    'sad': 'Sad',
+                    'angry': 'Angry'
+                };
+                
+                likeText.textContent = reactionTexts[type];
+                likeBtn.style.color = type === 'like' ? '#65676b' : 
+                                      type === 'love' ? '#f33e58' : 
+                                      type === 'haha' ? '#f7b125' : 
+                                      type === 'wow' ? '#f7b125' : 
+                                      type === 'sad' ? '#f7b125' : 
+                                      '#fa3c3c';
+                
+                // Hide panel after selection
+                reactionsPanel.style.display = 'none';
+                
+                // Here you would typically send the reaction to your server
+                console.log(`User reacted with: ${type}`);
+            });
+        });
+    </script>
+</body>
+</html>

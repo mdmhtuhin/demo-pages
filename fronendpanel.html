@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Website with Fixed Sidebar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Responsive Navbar */
+        .navbar {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #3498db;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        /* Main Layout */
+        .main-container {
+            display: flex;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+            min-height: calc(100vh - 120px);
+            align-items: flex-start; /* Align items to top */
+        }
+
+        /* Fixed Sidebar */
+        .sidebar {
+            flex: 0 0 250px;
+            background-color: #ecf0f1;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-right: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 90px; /* Height of navbar + some spacing */
+            max-height: calc(100vh - 110px); /* Viewport height minus navbar and padding */
+            overflow-y: auto; /* Adds scroll if content is taller than viewport */
+        }
+
+        .sidebar h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .sidebar-links {
+            list-style: none;
+        }
+
+        .sidebar-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-links a {
+            color: #34495e;
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .sidebar-links a:hover {
+            background-color: #3498db;
+            color: white;
+            padding-left: 1rem;
+        }
+
+        /* Responsive Content */
+        .content {
+            flex: 1;
+            padding: 1rem;
+        }
+
+        .content h1 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .content p {
+            margin-bottom: 1.5rem;
+            color: #7f8c8d;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 20px;
+                position: relative;
+                top: auto;
+                max-height: none;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+        
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: #2c3e50;
+                flex-direction: column;
+                align-items: center;
+                padding: 1rem 0;
+                clip-path: circle(0px at 90% -10%);
+                transition: clip-path 0.5s ease;
+                pointer-events: none;
+            }
+        
+            .nav-links.active {
+                clip-path: circle(1000px at 90% -10%);
+                pointer-events: all;
+            }
+        
+            .nav-links li {
+                margin: 1rem 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .navbar-container {
+                padding: 0 10px;
+            }
+            
+            .logo {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Responsive Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="logo">ResponsiveSite</a>
+            
+            <!-- Mobile menu button -->
+            <button class="mobile-menu-toggle" aria-expanded="false">
+                <span class="sr-only">Menu</span>
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <!-- Navigation Links -->
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Portfolio</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="main-container">
+        <!-- Fixed Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <h3>Menu</h3>
+                <ul class="sidebar-links">
+                    <li><a href="#"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="#"><i class="fas fa-user"></i> Profile</a></li>
+                    <li><a href="#"><i class="fas fa-envelope"></i> Messages</a></li>
+                    <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                    <li><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+                <h3 style="margin-top: 2rem;">Categories</h3>
+                <ul class="sidebar-links">
+                    <li><a href="#"><i class="fas fa-code"></i> Web Development</a></li>
+                    <li><a href="#"><i class="fas fa-paint-brush"></i> Design</a></li>
+                    <li><a href="#"><i class="fas fa-chart-line"></i> Marketing</a></li>
+                    <li><a href="#"><i class="fas fa-mobile-alt"></i> Mobile Apps</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Responsive Content -->
+        <main class="content">
+            <h1>Welcome to Our Website</h1>
+            <p>This is a fully responsive layout that adapts to all screen sizes. The sidebar is now fixed while scrolling the content. Resize your browser window to see how the layout responds.</p>
+            
+            <div class="content-grid">
+                <div class="card">
+                    <h3>Fixed Sidebar</h3>
+                    <p>The sidebar now stays visible while you scroll through the content area.</p>
+                </div>
+                <div class="card">
+                    <h3>Modern Features</h3>
+                    <p>Built with CSS Grid and Flexbox for optimal performance.</p>
+                </div>
+                <div class="card">
+                    <h3>User Friendly</h3>
+                    <p>Intuitive navigation with accessible components.</p>
+                </div>
+                <div class="card">
+                    <h3>Scrollable Content</h3>
+                    <p>The main content area scrolls independently with the sidebar fixed.</p>
+                </div>
+                <div class="card">
+                    <h3>Sample Content</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="card">
+                    <h3>More Information</h3>
+                    <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+                <div class="card">
+                    <h3>Additional Card</h3>
+                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+                </div>
+                <div class="card">
+                    <h3>Final Example</h3>
+                    <p>Duis aute irure dolor in reprehenderit in voluptate velit.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Responsive Website. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Mobile menu toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.querySelector('.mobile-menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            mobileMenuButton.addEventListener('click', () => {
+                const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+                mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+                navLinks.classList.toggle('active');
+                
+                // Toggle icon between bars and times
+                const icon = mobileMenuButton.querySelector('i');
+                if (icon.classList.contains('fa-bars')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+
+            // Close menu when clicking on a link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                    navLinks.classList.remove('active');
+                    const icon = mobileMenuButton.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                });
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

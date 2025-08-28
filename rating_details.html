@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rating Details Modal with Rating Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        /* Button to trigger modal */
+        .profile-rating-open-modal-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 20px auto;
+            display: block;
+        }
+
+        /* Modal styles */
+        .profile-rating-modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .profile-rating-modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            width: 80%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .profile-rating-close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .profile-rating-close:hover {
+            color: black;
+        }
+
+        /* Rating content styles */
+        .profile-rating-title {
+            color: #333;
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .profile-rating-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .profile-rating-average {
+            font-size: 42px;
+            font-weight: bold;
+            color: #ff9800;
+            margin-bottom: 5px;
+            line-height: 1;
+        }
+
+        .profile-rating-review-count {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .profile-rating-reviews-list {
+            margin-top: 20px;
+        }
+
+        .profile-rating-review {
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            gap: 15px;
+        }
+
+        .profile-rating-review:last-child {
+            border-bottom: none;
+        }
+
+        .profile-rating-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            background-color: #eee;
+            flex-shrink: 0;
+        }
+
+        .profile-rating-review-content {
+            flex-grow: 1;
+        }
+
+        .profile-rating-reviewer {
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .profile-rating-stars {
+            color: #ff9800;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .profile-rating-review-date {
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .profile-rating-review-text {
+            color: #333;
+            line-height: 1.5;
+            font-size: 15px;
+        }
+
+        .profile-rating-empty-review {
+            color: #999;
+            font-style: italic;
+        }
+
+        .profile-rating-initials-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #4CAF50;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        /* Rating form styles */
+        .profile-rating-form {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .profile-rating-form-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .profile-rating-input {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .profile-rating-input .profile-rating-star {
+            font-size: 30px;
+            color: #ccc;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .profile-rating-input .profile-rating-star:hover,
+        .profile-rating-input .profile-rating-star.active {
+            color: #ff9800;
+        }
+
+        .profile-rating-textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: vertical;
+            min-height: 80px;
+            margin-bottom: 15px;
+            font-family: Arial, sans-serif;
+        }
+
+        .profile-rating-submit-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .profile-rating-submit-btn:hover {
+            background-color: #45a049;
+        }
+
+        .profile-rating-form-group {
+            margin-bottom: 15px;
+        }
+
+        .profile-rating-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .profile-rating-input-text {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Button to open the modal -->
+    <button class="profile-rating-open-modal-btn">View Rating Details</button>
+
+    <!-- The Modal -->
+    <div id="ratingModal" class="profile-rating-modal">
+        <!-- Modal content -->
+        <div class="profile-rating-modal-content">
+            <span class="profile-rating-close">&times;</span>
+            
+            <div class="profile-rating-title">Rating Details</div>
+            
+            <div class="profile-rating-header">
+                <div class="profile-rating-average">4.5</div>
+                <div class="profile-rating-review-count">3 reviews of mht</div>
+            </div>
+            
+            <div class="profile-rating-reviews-list">
+                <div class="profile-rating-review">
+                    <div class="profile-rating-initials-avatar">T</div>
+                    <div class="profile-rating-review-content">
+                        <div class="profile-rating-reviewer">tuhin12</div>
+                        <div class="profile-rating-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="profile-rating-review-date">September 8, 2022</div>
+                        <div class="profile-rating-review-text">hi hhu hi hhu</div>
+                    </div>
+                </div>
+                
+                <div class="profile-rating-review">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Aum" class="profile-rating-avatar">
+                    <div class="profile-rating-review-content">
+                        <div class="profile-rating-reviewer">aum</div>
+                        <div class="profile-rating-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="profile-rating-review-date">September 26, 2023</div>
+                        <div class="profile-rating-review-text">hasan bhai op</div>
+                    </div>
+                </div>
+                
+                <div class="profile-rating-review">
+                    <div class="profile-rating-initials-avatar">N</div>
+                    <div class="profile-rating-review-content">
+                        <div class="profile-rating-reviewer">new_user_</div>
+                        <div class="profile-rating-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="profile-rating-review-date">May 5, 2025</div>
+                        <div class="profile-rating-review-text profile-rating-empty-review">No review text</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rating Form -->
+            <div class="profile-rating-form">
+                <div class="profile-rating-form-title">Add Your Rating</div>
+                <form id="reviewForm">
+                    <div class="profile-rating-form-group">
+                        <label for="userName" class="profile-rating-label">Your Name</label>
+                        <input type="text" id="userName" class="profile-rating-input-text" required>
+                    </div>
+                    
+                    <div class="profile-rating-form-group">
+                        <label class="profile-rating-label">Your Rating</label>
+                        <div class="profile-rating-input">
+                            <i class="fas fa-star profile-rating-star" data-value="1"></i>
+                            <i class="fas fa-star profile-rating-star" data-value="2"></i>
+                            <i class="fas fa-star profile-rating-star" data-value="3"></i>
+                            <i class="fas fa-star profile-rating-star" data-value="4"></i>
+                            <i class="fas fa-star profile-rating-star" data-value="5"></i>
+                            <input type="hidden" id="ratingValue" name="rating" value="0">
+                        </div>
+                    </div>
+                    
+                    <div class="profile-rating-form-group">
+                        <label for="reviewText" class="profile-rating-label">Your Review</label>
+                        <textarea id="reviewText" class="profile-rating-textarea" placeholder="Share your experience..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="profile-rating-submit-btn">Submit Review</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get the modal
+        const modal = document.getElementById("ratingModal");
+        
+        // Get the button that opens the modal
+        const btn = document.querySelector(".profile-rating-open-modal-btn");
+        
+        // Get the <span> element that closes the modal
+        const span = document.getElementsByClassName("profile-rating-close")[0];
+        
+        // When the user clicks the button, open the modal 
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+        
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+        
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Star rating functionality
+        const stars = document.querySelectorAll('.profile-rating-star');
+        const ratingValue = document.getElementById('ratingValue');
+        
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                const value = parseInt(this.getAttribute('data-value'));
+                ratingValue.value = value;
+                
+                stars.forEach((s, index) => {
+                    if (index < value) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+            });
+            
+            star.addEventListener('mouseover', function() {
+                const value = parseInt(this.getAttribute('data-value'));
+                
+                stars.forEach((s, index) => {
+                    if (index < value) {
+                        s.style.color = '#ff9800';
+                    } else {
+                        s.style.color = '#ccc';
+                    }
+                });
+            });
+            
+            star.addEventListener('mouseout', function() {
+                const currentRating = parseInt(ratingValue.value);
+                
+                stars.forEach((s, index) => {
+                    if (index < currentRating) {
+                        s.style.color = '#ff9800';
+                    } else {
+                        s.style.color = '#ccc';
+                    }
+                });
+            });
+        });
+
+        // Form submission
+        document.getElementById('reviewForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const userName = document.getElementById('userName').value;
+            const rating = ratingValue.value;
+            const reviewText = document.getElementById('reviewText').value;
+            
+            if (rating === "0") {
+                alert('Please select a rating');
+                return;
+            }
+            
+            // Here you would typically send the data to a server
+            // For this example, we'll just show an alert
+            alert(`Thank you for your review, ${userName}! Your ${rating}-star rating has been submitted.`);
+            
+            // Reset form
+            this.reset();
+            stars.forEach(star => star.classList.remove('active'));
+            ratingValue.value = "0";
+        });
+    </script>
+</body>
+</html>
