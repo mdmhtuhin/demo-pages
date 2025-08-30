@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sacha Evans | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fc;
+            color: #333;
+        }
+        .hero-bg {
+            background-image: linear-gradient(to bottom, #f7f9fc, #e5e9f2);
+        }
+        .section {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f7f9fc;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation Bar -->
+    <nav class="sticky top-0 z-50 bg-white shadow-sm p-4 backdrop-filter backdrop-blur-lg bg-opacity-80">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-gray-800">Sacha Evans</a>
+            <div class="space-x-4 hidden md:flex">
+                <a href="#about" class="text-gray-600 hover:text-gray-800 transition-colors">About</a>
+                <a href="#projects" class="text-gray-600 hover:text-gray-800 transition-colors">Projects</a>
+                <a href="#contact" class="text-gray-600 hover:text-gray-800 transition-colors">Contact</a>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-button" class="text-gray-600 hover:text-gray-800 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden mt-2">
+            <a href="#about" class="block py-2 px-4 text-gray-600 hover:bg-gray-100 transition-colors">About</a>
+            <a href="#projects" class="block py-2 px-4 text-gray-600 hover:bg-gray-100 transition-colors">Projects</a>
+            <a href="#contact" class="block py-2 px-4 text-gray-600 hover:bg-gray-100 transition-colors">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="hero" class="hero-bg py-20 md:py-32 section">
+        <div class="container mx-auto px-4 text-center">
+            <img src="https://placehold.co/150x150/e2e8f0/64748b?text=SE" alt="Sacha Evans" class="mx-auto rounded-full w-36 h-36 mb-6 shadow-lg">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight mb-4">
+                Sacha Evans
+            </h1>
+            <p class="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+                Full-stack Developer passionate about building beautiful and functional web applications.
+            </p>
+            <a href="#projects" class="inline-block bg-gray-800 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-gray-700 transition-transform transform hover:-translate-y-1">
+                View My Work
+            </a>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="bg-white section">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">About Me</h2>
+            <div class="max-w-4xl mx-auto text-lg text-gray-700 leading-relaxed">
+                <p class="mb-6">
+                    I'm a seasoned software developer with over 5 years of experience in creating dynamic and user-centric web solutions. My journey began with a curiosity for how websites work, and it quickly evolved into a passion for building robust, scalable applications. I specialize in the MERN stack, crafting seamless experiences from the front-end to the back-end.
+                </p>
+                <p>
+                    Beyond the keyboard, I'm an avid problem-solver who enjoys tackling complex challenges. I'm always eager to learn new technologies and contribute to projects that make a real-world impact. Let's build something great together.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="bg-gray-100 section">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">My Projects</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project Card 1 -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105">
+                    <img src="https://placehold.co/600x400/cbd5e1/475569?text=Project+1" alt="Project 1" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">E-commerce Platform</h3>
+                        <p class="text-gray-600 text-sm mb-4">A full-stack e-commerce site with user authentication, product management, and a secure checkout process.</p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-gray-600 hover:text-gray-800 transition-colors" title="View Project">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                            </a>
+                            <a href="#" class="text-gray-600 hover:text-gray-800 transition-colors" title="View Code">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-4m4 4l-4-4m-12-3H5a2 2 0 01-2-2V7a2 2 0 012-2h14a2 2 0 012 2v2"></path></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project Card 2 -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105">
+                    <img src="https://placehold.co/600x400/cbd5e1/475569?text=Project+2" alt="Project 2" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Task Management App</h3>
+                        <p class="text-gray-600 text-sm mb-4">A collaborative task manager with real-time updates and customizable boards for teams.</p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-gray-600 hover:text-gray-800 transition-colors" title="View Project">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                            </a>
+                            <a href="#" class="text-gray-600 hover:text-gray-800 transition-colors" title="View Code">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-4m4 4l-4-4m-12-3H5a2 2 0 01-2-2V7a2 2 0 012-2h14a2 2 0 012 2v2"></path></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project Card 3 -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105">
+                    <img src="https://placehold.co/600x400/cbd5e1/475569?text=Project+3" alt="Project 3" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Recipe Blog</h3>
+                        <p class="text-gray-600 text-sm mb-4">A dynamic blog platform for sharing recipes, featuring search functionality and user comments.</p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-gray-600 hover:text-gray-800 transition-colors" title="View Project">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                            </a>
+                            <a href="#" class="text-gray-600 hover:text-gray-800 transition-colors" title="View Code">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-4m4 4l-4-4m-12-3H5a2 2 0 01-2-2V7a2 2 0 012-2h14a2 2 0 012 2v2"></path></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-white section">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Get in Touch</h2>
+            <p class="text-lg text-gray-700 max-w-2xl mx-auto mb-8">
+                I'm always open to new opportunities, collaborations, and conversations. Feel free to reach out!
+            </p>
+            <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8">
+                <a href="mailto:sacha.evans@example.com" class="bg-gray-800 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-gray-700 transition-transform transform hover:-translate-y-1">
+                    Email Me
+                </a>
+                <a href="#" class="bg-white text-gray-800 font-semibold py-3 px-8 rounded-full shadow-lg border border-gray-300 hover:bg-gray-100 transition-transform transform hover:-translate-y-1">
+                    Download Resume
+                </a>
+            </div>
+            <div class="mt-8 flex justify-center space-x-6">
+                <!-- LinkedIn Icon (Inline SVG) -->
+                <a href="#" target="_blank" class="text-gray-600 hover:text-gray-900 transition-colors">
+                    <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.11 2.48 2.5zM4.5 8H.5v16H4.5V8zM14.5 8H10.5V24h4v-6.38c0-3.15 1.25-5.32 4-5.32 2.75 0 3.99 2.17 3.99 5.32V24h4v-7.91c0-4.9-2.22-7.85-6.23-7.85-3.26 0-4.88 1.83-5.75 2.94V8H14.5z"/></svg>
+                </a>
+                <!-- Twitter/X Icon (Inline SVG) -->
+                <a href="#" target="_blank" class="text-gray-600 hover:text-gray-900 transition-colors">
+                    <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M18.9 4.88c.28-.18.6-.28.94-.28a2.53 2.53 0 011.83.69c.8.8.8 2.07 0 2.87-.27.27-.58.5-.94.67-.36.16-.76.25-1.18.25-.42 0-.82-.09-1.18-.25a.8.8 0 01-.67-.94c0-.36.1-.73.28-1.02.18-.28.43-.53.75-.72.32-.2.67-.35 1.05-.44a1.8 1.8 0 011.05-.2.8.8 0 01.94.94c0 .36-.1.73-.28 1.02-.18.28-.43.53-.75.72-.32.2-.67.35-1.05.44-.38.09-.77.14-1.15.14-.38 0-.76-.05-1.15-.14a3.52 3.52 0 01-1.05-.44 2.53 2.53 0 01-.75-.72c-.32-.32-.57-.69-.75-1.05-.18-.36-.28-.76-.28-1.15 0-.38.1-.76.28-1.15.18-.38.43-.73.75-1.05.32-.32.69-.57 1.05-.75.36-.18.76-.28 1.15-.28zM18 10a8 8 0 100 16 8 8 0 000-16z"/></svg>
+                </a>
+                <!-- GitHub Icon (Inline SVG) -->
+                <a href="#" target="_blank" class="text-gray-600 hover:text-gray-900 transition-colors">
+                    <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.6.111.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.542-1.368-1.325-1.735-1.325-1.735-1.085-.742.081-.727.081-.727 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.492.997.108-.775.418-1.305.762-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.312.465-2.385 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.046.138 3.006.404 2.296-1.552 3.297-1.23 3.297-1.23.645 1.653.24 2.873.105 3.176.77.835 1.235 1.908 1.235 3.22 0 4.612-2.807 5.624-5.479 5.92-.42.365-.823 1.102-.823 2.222 0 1.606-.015 2.899-.015 3.299 0 .318.216.69.825.577C20.565 21.802 24 17.302 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto text-center">
+            <p class="text-sm">&copy; 2025 Sacha Evans. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Toggle mobile menu
+        const menuButton = document.getElementById('menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+
+</body>
+</html>
